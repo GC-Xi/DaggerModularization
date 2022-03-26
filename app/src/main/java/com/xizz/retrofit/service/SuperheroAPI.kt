@@ -1,6 +1,6 @@
-package com.xizz.retrofit
+package com.xizz.retrofit.service
 
-import retrofit2.Call
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 
 data class Hero(
@@ -16,5 +16,5 @@ data class Hero(
 
 interface SuperheroAPI {
     @GET("marvel")
-    fun getHeroes(): Call<List<Hero>>
+    fun getHeroes(): Single<List<Hero>>
 }

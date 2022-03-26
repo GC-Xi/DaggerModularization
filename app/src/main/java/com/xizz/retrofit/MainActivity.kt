@@ -3,20 +3,29 @@ package com.xizz.retrofit
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.xizz.retrofit.databinding.ActivityMainBinding
 import com.xizz.retrofit.databinding.ViewholderHeroBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.xizz.retrofit.service.Hero
+import com.xizz.retrofit.service.HeroNetworkImpl
+import com.xizz.retrofit.service.HeroService
+import com.xizz.retrofit.service.HeroServiceImpl
+import com.xizz.retrofit.service.NetworkProviderImpl
+import com.xizz.retrofit.service.SuperheroAPI
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
+    private val service: HeroService = HeroServiceImpl(HeroNetworkImpl(NetworkProviderImpl()))
+    private val compositeDisposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,15 +50,17 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.heroList.adapter = adapter
 
-        api.getHeroes().enqueue(object : Callback<List<Hero>> {
-            override fun onResponse(call: Call<List<Hero>>, response: Response<List<Hero>>) {
-                adapter.submitList(response.body() ?: emptyList())
-            }
+        service.getHeros()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                adapter.submitList(it)
+            }, {}).addTo(compositeDisposable)
+    }
 
-            override fun onFailure(call: Call<List<Hero>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
-            }
-        })
+    override fun onStop() {
+        compositeDisposable.clear()
+        super.onStop()
     }
 }
 
