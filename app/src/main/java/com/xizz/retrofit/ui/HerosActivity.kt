@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.xizz.retrofit.MainApplication
 import com.xizz.retrofit.databinding.ActivityHerosBinding
 import com.xizz.retrofit.databinding.ViewholderHeroBinding
-import com.xizz.retrofit.di.DaggerUserComponent
 import com.xizz.retrofit.service.Hero
 import com.xizz.retrofit.service.HeroService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -24,7 +24,7 @@ class HerosActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerUserComponent.create().inject(this)
+        (application as MainApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityHerosBinding.inflate(layoutInflater)
@@ -40,7 +40,7 @@ class HerosActivity : AppCompatActivity() {
             }
         }
 
-        viewBinding.serviceIdText.text = service.toString()
+        viewBinding.serviceIdText.text = "$service \n ${service.heroNetwork} \n ${service.heroNetwork.networkProvider}"
         viewBinding.heroList.adapter = adapter
 
         service.getHeros()
@@ -58,4 +58,3 @@ class HerosActivity : AppCompatActivity() {
 }
 
 data class HeroViewHolder(val viewBinding: ViewholderHeroBinding) : RecyclerView.ViewHolder(viewBinding.root)
-

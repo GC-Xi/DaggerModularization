@@ -10,7 +10,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class UserModule {
+abstract class AppModule {
 
     @Binds
     abstract fun heroService(impl: HeroServiceImpl): HeroService
