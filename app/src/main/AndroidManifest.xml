@@ -15,6 +15,10 @@
         android:theme="@style/Theme.Retrofit"
         >
         <activity
+            android:name=".ui.HerosActivity"
+            android:exported="false"
+            />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             >
