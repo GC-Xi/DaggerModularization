@@ -9,6 +9,12 @@
     tools:context=".ui.MainActivity"
     >
 
+    <TextView
+        android:id="@+id/app_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/show_heros_button"
         android:layout_width="wrap_content"
