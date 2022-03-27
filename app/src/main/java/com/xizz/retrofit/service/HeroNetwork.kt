@@ -1,15 +1,15 @@
 package com.xizz.retrofit.service
 
+import com.xizz.retrofit.di.PerUserScope
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
-import javax.inject.Singleton
 
 interface HeroNetwork {
     val networkProvider: NetworkProvider // for debugging
     fun getHeros(): Single<List<Hero>>
 }
 
-@Singleton
+@PerUserScope
 class HeroNetworkImpl @Inject constructor(
     override val networkProvider: NetworkProvider
 ) : HeroNetwork {
