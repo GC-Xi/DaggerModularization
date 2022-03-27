@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
+import com.xizz.retrofit.MainApplication
 import com.xizz.retrofit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.showHerosButton.setOnClickListener {
             startActivity(Intent(this, HerosActivity::class.java))
+        }
+        viewBinding.switchUserButton.setOnClickListener {
+            (application as MainApplication).switchUser()
         }
     }
 }

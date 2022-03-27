@@ -44,7 +44,7 @@ class HerosActivity : AppCompatActivity() {
             }
         }
 
-        viewBinding.serviceIdText.text = "$userId \n $service \n ${service.heroNetwork} \n ${service.heroNetwork.networkProvider}"
+        viewBinding.serviceIdText.text = "User ID: $userId \nService: $service \nNetwork: ${service.heroNetwork} \nProvider: ${service.heroNetwork.networkProvider}"
         viewBinding.heroList.adapter = adapter
 
         service.getHeros()

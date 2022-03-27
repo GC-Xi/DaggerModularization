@@ -10,4 +10,8 @@ import java.util.*
 class MainApplication : Application() {
     val appComponent: AppComponent = DaggerAppComponent.create()
     var userComponent: UserComponent = appComponent.userComponent(UserModule(UUID.randomUUID()))
+
+    fun switchUser() {
+        userComponent = appComponent.userComponent(UserModule(UUID.randomUUID()))
+    }
 }
