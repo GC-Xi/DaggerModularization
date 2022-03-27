@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 class HerosActivity : AppCompatActivity() {
@@ -21,10 +22,13 @@ class HerosActivity : AppCompatActivity() {
     @Inject
     lateinit var service: HeroService
 
+    @Inject
+    lateinit var userId: UUID
+
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MainApplication).appComponent.inject(this)
+        (application as MainApplication).userComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityHerosBinding.inflate(layoutInflater)
@@ -40,7 +44,7 @@ class HerosActivity : AppCompatActivity() {
             }
         }
 
-        viewBinding.serviceIdText.text = "$service \n ${service.heroNetwork} \n ${service.heroNetwork.networkProvider}"
+        viewBinding.serviceIdText.text = "$userId \n $service \n ${service.heroNetwork} \n ${service.heroNetwork.networkProvider}"
         viewBinding.heroList.adapter = adapter
 
         service.getHeros()
