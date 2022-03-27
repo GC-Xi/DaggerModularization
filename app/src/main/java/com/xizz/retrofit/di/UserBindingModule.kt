@@ -10,14 +10,14 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class UserBindingModule {
+interface UserBindingModule {
 
     @Binds
-    abstract fun heroService(impl: HeroServiceImpl): HeroService
+    fun heroService(impl: HeroServiceImpl): HeroService
 
     @Binds
-    abstract fun heroNetwork(impl: HeroNetworkImpl): HeroNetwork
+    fun heroNetwork(impl: HeroNetworkImpl): HeroNetwork
 
     @Binds
-    abstract fun networkProvider(impl: NetworkProviderImpl): NetworkProvider
+    fun networkProvider(impl: NetworkProviderImpl): NetworkProvider
 }

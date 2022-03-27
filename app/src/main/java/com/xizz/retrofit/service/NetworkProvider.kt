@@ -1,6 +1,6 @@
 package com.xizz.retrofit.service
 
-import com.xizz.retrofit.di.PerUserScope
+import com.xizz.retrofit.model.PerUserScope
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
