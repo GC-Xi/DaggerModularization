@@ -1,4 +1,4 @@
-package com.xizz.retrofit
+package com.xizz.retrofit.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,34 +9,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.xizz.retrofit.databinding.ActivityMainBinding
 import com.xizz.retrofit.databinding.ViewholderHeroBinding
+import com.xizz.retrofit.di.DaggerUserComponent
 import com.xizz.retrofit.service.Hero
-import com.xizz.retrofit.service.HeroNetworkImpl
 import com.xizz.retrofit.service.HeroService
-import com.xizz.retrofit.service.HeroServiceImpl
-import com.xizz.retrofit.service.NetworkProviderImpl
-import com.xizz.retrofit.service.SuperheroAPI
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    private val service: HeroService = HeroServiceImpl(HeroNetworkImpl(NetworkProviderImpl()))
+
+    @Inject
+    lateinit var service: HeroService
+
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerUserComponent.create().inject(this)
+
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://simplifiedcoding.net/demos/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val api = retrofit.create(SuperheroAPI::class.java)
 
         val adapter = object : ListAdapter<Hero, HeroViewHolder>(DiffAdapterCallback<Hero>()) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder =
