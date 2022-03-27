@@ -1,10 +1,9 @@
-package com.xizz.retrofit.service
+package com.xizz.network
 
-import com.xizz.retrofit.model.Hero
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 
 interface SuperheroAPI {
     @GET("marvel")
-    fun getHeroes(): Single<List<Hero>>
+    fun getHeroes(): Single<List<com.xizz.models.Hero>>
 }

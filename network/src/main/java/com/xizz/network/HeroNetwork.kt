@@ -1,7 +1,7 @@
-package com.xizz.retrofit.service
+package com.xizz.network
 
-import com.xizz.retrofit.model.Hero
-import com.xizz.retrofit.model.PerUserScope
+import com.xizz.models.Hero
+import com.xizz.models.PerUserScope
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

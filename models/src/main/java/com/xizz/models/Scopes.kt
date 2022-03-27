@@ -1,4 +1,4 @@
-package com.xizz.retrofit.model
+package com.xizz.models
 
 import javax.inject.Scope
 

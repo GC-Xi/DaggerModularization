@@ -1,4 +1,4 @@
-package com.xizz.retrofit.model
+package com.xizz.models
 
 data class Hero(
     var name: String,
