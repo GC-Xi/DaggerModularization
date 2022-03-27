@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xizz.retrofit.MainApplication
 import com.xizz.retrofit.databinding.ActivityHerosBinding
 import com.xizz.retrofit.databinding.ViewholderHeroBinding
+import com.xizz.retrofit.di.LoggedInUserID
+import com.xizz.retrofit.di.RandomID
 import com.xizz.retrofit.service.Hero
 import com.xizz.retrofit.service.HeroService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -22,8 +24,11 @@ class HerosActivity : AppCompatActivity() {
     @Inject
     lateinit var service: HeroService
 
-    @Inject
+    @Inject @LoggedInUserID
     lateinit var userId: UUID
+
+    @Inject @RandomID
+    lateinit var randomId: UUID
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -44,7 +49,7 @@ class HerosActivity : AppCompatActivity() {
             }
         }
 
-        viewBinding.serviceIdText.text = "User ID: $userId \nService: $service \nNetwork: ${service.heroNetwork} \nProvider: ${service.heroNetwork.networkProvider}"
+        viewBinding.serviceIdText.text = "User ID: $userId \nRandom ID: $randomId \nService: $service \nNetwork: ${service.heroNetwork} \nProvider: ${service.heroNetwork.networkProvider}"
         viewBinding.heroList.adapter = adapter
 
         service.getHeros()

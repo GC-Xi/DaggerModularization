@@ -6,7 +6,4 @@ import dagger.Subcomponent
 @Subcomponent(modules = [UserModule::class])
 interface UserComponent {
     fun inject(activity: HerosActivity)
-
-//    @LoggedInUserID
-//    fun currentLoggedInUserId(): UUID
 }
